@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Category, Product, Commande
+from .models import Category, Product, Commande, Livraison
 # Register your models here.
 admin.site.site_header ="E-commerce"
 admin.site.site_title ="AYM-shop"
@@ -18,6 +18,12 @@ class AdminProduct(admin.ModelAdmin):
 class AdminCommande(admin.ModelAdmin):
     list_display = ('items', 'nom', 'email', 'address', 'ville', 'pays','total', 'date_commande')
     
+
+class AdminLivraison(admin.ModelAdmin):
+    list_display = ('status', 'commande', 'date_added') 
+
+admin.site.register(Livraison, AdminLivraison)
+
 admin.site.register(Product, AdminProduct)
 admin.site.register(Category, AdminCategory)
 admin.site.register(Commande, AdminCommande)

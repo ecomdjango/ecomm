@@ -59,13 +59,18 @@
               
             </div>
             <button type="submit" class="btn btn-primary">Commander</button>
+            <a onclick="clearPanier()" class="btn btn-primary">Vider le Panier</a>
           </form>
     </div>
 </div>
 {% endblock %}
 {% block js %}
     <script type="text/javascript">
-        if(localStorage.getItem('panier')==null){
+        const clearPanier = function(){
+          localStorage.setItem('panier', null);
+        }
+        
+        if(localStorage.getItem('panier') == null){
             var panier = {};
 
         }else{

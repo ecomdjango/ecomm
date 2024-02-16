@@ -1,5 +1,7 @@
 from django.db import models
 
+
+
 # Create your models here.
 class Category(models.Model):
     name = models.CharField(max_length=200)
@@ -9,7 +11,25 @@ class Category(models.Model):
         ordering = ['-date_added']
     def __str__(self):
         return self.name
-        
+    
+
+    
+class Livraison(models.Model):
+    STATAUS_CHOICES = (
+        ("en stock", "en stock"),
+        ("en cour de livraison", "en cour de livraison"),
+        ("livré", "livré"),
+        ("retourné", "retourné"),
+    )
+    status = models.CharField(max_length=50, choices=STATAUS_CHOICES)
+    commande = models.ForeignKey("Commande", on_delete=models.CASCADE)
+    date_added = models.DateTimeField(auto_now=True)
+    
+    class Meta:
+        ordering = ['-date_added']
+    def __str__(self):
+        return f'{self.commande} x {self.status}'
+       
         
         
 class Product(models.Model):

@@ -62,10 +62,13 @@
 {% block js %}
     <script type="text/javascript">
         console.log('Juste pour tester');
-        if(localStorage.getItem('panier') == null){
+        console.log("----------------------------")
+        console.log(localStorage.getItem('panier'))
+        console.log("----------------------------")
+        if(localStorage.getItem('panier') == null || localStorage.getItem('panier') == "null" || localStorage.getItem('panier') == undefined){
             var panier = {};
-        }else{
-            panier = JSON.parse(localStorage.getItem('panier'));
+        } else{
+            var panier = JSON.parse(localStorage.getItem('panier'));
         }
         $(document).on('click', '.ted', function(){
             console.log('ajouter');
