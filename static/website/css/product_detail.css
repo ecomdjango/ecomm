@@ -1,0 +1,124 @@
+/*=========================================================
+	13 -> detail
+===========================================================*/
+
+
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
+
+.main-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+.product-container {
+  display: flex;
+  align-items: flex-start;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.image-container {
+  margin-right: 30px;
+}
+
+img {
+  max-width: 70%;
+  height: auto;
+  transition: transform .5s ease-in-out; /* Ajout de cette ligne */
+  
+}
+
+img:hover {
+  transform: scale(1.2); /* Ajout de cette ligne */
+}
+
+.product-details {
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 20px;
+}
+
+.name-container h1 {
+  margin: 30;
+  font-size: 45px; /* Taille de police augmentée pour rendre le nom plus visible */
+  color: #333; /* Couleur du texte ajustée pour une meilleure lisibilité */
+  text-transform: capitalize; /* Mettre en majuscules la première lettre de chaque mot */
+  text-align: center; /* Centrer le texte pour une meilleure présentation */
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.description-container {
+  border: 1px solid #ccc;
+  padding: 10px;
+  border-radius: 5px;
+  max-width: 600px;
+  max-height: 200px;
+  overflow-y: auto;
+  margin-bottom: 20px;
+  align-items: flex-start;
+  word-wrap: break-word;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+  
+}
+
+.price-container {
+  border: 1px solid #ccc;
+  padding: 10px;
+  border-radius: 5px;
+  background-color: #f5f5f5;
+  margin-bottom: 20px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.price-text {
+  font-size: 26px;
+  font-weight: bold;
+  color: #e44d26;
+}
+
+.category-container,
+.brand-container {
+  border: 1px solid #ccc;
+  padding: 10px;
+  border-radius: 5px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  font-size: 19px;
+}
+
+.button-container button {
+  background-color: #f04;
+  color: #fff;
+  padding: 1.5rem 2rem;
+  border: none;
+  border-radius: 1.25rem;
+  cursor: pointer; 
+}
+
+.button-container {
+  text-align: center; /* Aligne les éléments au centre si nécessaire */
+}
+
+.reture-boutton {
+  display: inline-block;
+  background-color: #f04;
+  color: #fff;
+  padding: 1.5rem 2rem;
+  border:none;
+  border-radius: 1.25rem;
+  left: 10px;
+  
+}
+
+.fa-arrow-circle-left {
+  content: "\2195"; /* Unicode character for left arrow */
+  font-size: 16px; /* Adjust the font size as needed */
+  font-weight: bold;
+  margin-right: 5px;
+}

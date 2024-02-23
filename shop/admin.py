@@ -1,10 +1,10 @@
 from django.contrib import admin
-from .models import Category, Product, Commande, Livraison
+from .models import Category, Product, Commande, Livraison,Customer
 # Register your models here.
 admin.site.site_header ="E-commerce"
 admin.site.site_title ="AYM-shop"
 admin.site.index_title ="Manager"
-
+admin.site.register(Customer)
 
 class AdminCategory(admin.ModelAdmin):
     list_display = ('name', 'date_added')
