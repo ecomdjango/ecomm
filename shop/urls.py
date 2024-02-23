@@ -1,10 +1,11 @@
 from django.urls import path
-from shop.views import index, detail, checkout, confirmation, category,Signup,Login
+from shop.views import index, detail, checkout, confirmation, category,Signup,Login, commandes
 from django.contrib.auth.views import LogoutView
 
 urlpatterns = [
     path('', index, name='home'),
     path('', index, name='product'),
+    path('commandes', commandes, name='commandes'),
     path('<int:myid>', detail, name="detail"),
     path('checkout', checkout, name="checkout"),
     path('confirmation', confirmation, name="confirmation" ),

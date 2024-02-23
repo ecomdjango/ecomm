@@ -1,6 +1,6 @@
 #from contextlib import _RedirectStream
 from django.shortcuts import render, redirect
-from .models import Product, Commande, Category,Customer
+from .models import Product, Commande, Category, Customer
 from django.core.paginator import Paginator  
 from django.shortcuts import render, redirect
 from django.contrib.auth.hashers import make_password
@@ -8,6 +8,7 @@ from django.shortcuts import render , redirect , HttpResponseRedirect
 from django.views import View
 from django.contrib.auth.hashers import  check_password
 from django.shortcuts import render, redirect
+import json
 
 # Create your views here.
 def index(request):
@@ -20,9 +21,20 @@ def index(request):
     product_object = paginator.get_page(page)
     return render(request, 'shop/index.html', {'product_object': product_object})
 
+
 def detail(request, myid):
     product_object = Product.objects.get(id=myid)
     return render(request, 'shop/detail.html', {'product': product_object})
+
+
+def commandes(request):
+    mes_commandes = Commande.objects.filter(email=request.session['Customer_email'])
+    parsed_commandes = []
+    for commande in mes_commandes:
+        items_dict = json.loads(commande.items)
+        parsed_commandes.append((commande, items_dict))
+    return render(request, 'shop/commandes.html', {'commandes': parsed_commandes})
+
 
 def checkout(request):
     if request.method == "POST":
@@ -37,9 +49,12 @@ def checkout(request):
         com = Commande(items=items, total=total, nom=nom, email=email, address=address, ville=ville, pays=pays, zipcode=zipcode)
         com.save()
         return redirect('confirmation')
-        
-        
-    return render(request, 'shop/checkout.html')
+
+    if request.session['Customer']:
+        customer = Customer.objects.get(id=request.session['Customer'])
+    else:
+        customer = Customer.objects.get(id=1)
+    return render(request, 'shop/checkout.html', {'customer': customer})
 
 def confirmation(request):
     info = Commande.objects.all()[:1]
@@ -50,9 +65,6 @@ def confirmation(request):
 def category(request):
     categories = Category.objects.all() 
     return render(request, 'shop/base.html', {'categories': categories})
-
-
-
 
 class Signup(View):
     def get(self, request):
@@ -125,6 +137,7 @@ class Login(View):
                 flag = check_password(password, customer.password)
                 if flag:
                     request.session['Customer'] = customer.id
+                    request.session['Customer_email'] = customer.email
 
                     if Login.return_url:
                         return HttpResponseRedirect(Login.return_url)

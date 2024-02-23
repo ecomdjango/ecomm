@@ -33,6 +33,7 @@ class Customer(models.Model):
 
     def __str__(self):
         return f"{self.fname} {self.phone} {self.adresse} {self.email} {self.username}"
+
 class Category(models.Model):
     name = models.CharField(max_length=200)
     date_added = models.DateTimeField(auto_now=True)
@@ -42,24 +43,6 @@ class Category(models.Model):
 
     def __str__(self):
         return self.name
-
-
-class Livraison(models.Model):
-    STATAUS_CHOICES = (
-        ("en stock", "en stock"),
-        ("en cour de livraison", "en cour de livraison"),
-        ("livré", "livré"),
-        ("retourné", "retourné"),
-    )
-    status = models.CharField(max_length=50, choices=STATAUS_CHOICES)
-    commande = models.ForeignKey("Commande", on_delete=models.CASCADE)
-    date_added = models.DateTimeField(auto_now=True)
-
-    class Meta:
-        ordering = ['-date_added']
-
-    def __str__(self):
-        return f'{self.commande} x {self.status}'
 
 
 class Product(models.Model):
@@ -78,6 +61,12 @@ class Product(models.Model):
 
 
 class Commande(models.Model):
+    LIVRAISON_CHOICES = (
+        ('en_stock', 'En Stock'),
+        ('en_route', 'En Route'),
+        ('livre', 'Livré'),
+        ('annule', 'Annulé'),
+    )
     items = models.CharField(max_length=300)
     total = models.CharField(max_length=200)
     nom = models.CharField(max_length=150)
@@ -87,6 +76,7 @@ class Commande(models.Model):
     pays = models.CharField(max_length=300)
     zipcode = models.CharField(max_length=300)
     date_commande = models.DateTimeField(auto_now=True)
+    livraison = models.CharField(max_length=20, choices=LIVRAISON_CHOICES, default='en_stock')
 
     class Meta:
         ordering = ['-date_commande']
