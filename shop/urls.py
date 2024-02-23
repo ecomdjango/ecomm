@@ -1,5 +1,9 @@
 from django.urls import path
+<<<<<<< HEAD
 from shop.views import index, detail, checkout, confirmation, category,Signup,Login, commandes
+=======
+from shop.views import index, detail, checkout, confirmation, category,Signup,Login, commandes, categoryPage
+>>>>>>> origin/main
 from django.contrib.auth.views import LogoutView
 
 urlpatterns = [
@@ -13,4 +17,6 @@ urlpatterns = [
     path('inscription', Signup.as_view(), name='inscription.html'),
     path('login', Login.as_view(), name='login.html'),
     path("logout/", LogoutView.as_view(), name="logout"),
+    path('<slug:cat>', categoryPage, name="category"),
+
 ]
