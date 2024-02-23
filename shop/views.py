@@ -8,13 +8,9 @@ from django.shortcuts import render , redirect , HttpResponseRedirect
 from django.views import View
 from django.contrib.auth.hashers import  check_password
 from django.shortcuts import render, redirect
-<<<<<<< HEAD
-import json
-=======
 from django.contrib import messages
 import json
 from slugify import slugify
->>>>>>> origin/main
 
 # Create your views here.
 def index(request):
@@ -28,8 +24,6 @@ def index(request):
     return render(request, 'shop/index.html', {'product_object': product_object})
 
 
-<<<<<<< HEAD
-=======
 def categoryPage(request, cat):
     product_object = Product.objects.all()
     if cat and cat.strip():
@@ -42,7 +36,6 @@ def categoryPage(request, cat):
     return render(request, 'shop/index.html', {'product_object': product_object})
 
 
->>>>>>> origin/main
 def detail(request, myid):
     product_object = Product.objects.get(id=myid)
     return render(request, 'shop/detail.html', {'product': product_object})
@@ -71,12 +64,6 @@ def checkout(request):
         com.save()
         return redirect('confirmation')
 
-<<<<<<< HEAD
-    if request.session['Customer']:
-        customer = Customer.objects.get(id=request.session['Customer'])
-    else:
-        customer = Customer.objects.get(id=1)
-=======
     if "Customer" not in request.session:
         messages.error(request, "Vous devez être connecté en tant que client pour accéder à la page de paiement.")
         return redirect('/')
@@ -84,7 +71,6 @@ def checkout(request):
     if request.session['Customer']:
         customer = Customer.objects.get(id=request.session['Customer'])
 
->>>>>>> origin/main
     return render(request, 'shop/checkout.html', {'customer': customer})
 
 def confirmation(request):

@@ -1,9 +1,5 @@
 from django.urls import path
-<<<<<<< HEAD
-from shop.views import index, detail, checkout, confirmation, category,Signup,Login, commandes
-=======
 from shop.views import index, detail, checkout, confirmation, category,Signup,Login, commandes, categoryPage
->>>>>>> origin/main
 from django.contrib.auth.views import LogoutView
 
 urlpatterns = [
