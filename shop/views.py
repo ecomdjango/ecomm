@@ -8,7 +8,9 @@ from django.shortcuts import render , redirect , HttpResponseRedirect
 from django.views import View
 from django.contrib.auth.hashers import  check_password
 from django.shortcuts import render, redirect
+from django.contrib import messages
 import json
+from slugify import slugify
 
 # Create your views here.
 def index(request):
@@ -16,6 +18,18 @@ def index(request):
     item_name = request.GET.get('item-name')
     if item_name !='' and item_name is not None:
         product_object = Product.objects.filter(title__icontains=item_name)
+    paginator = Paginator(product_object, 4)
+    page = request.GET.get('page')
+    product_object = paginator.get_page(page)
+    return render(request, 'shop/index.html', {'product_object': product_object})
+
+
+def categoryPage(request, cat):
+    product_object = Product.objects.all()
+    if cat and cat.strip():
+        product_object = product_object.filter(
+            category_id__in=Category.objects.filter(name__icontains=cat).values_list('id', flat=True))
+
     paginator = Paginator(product_object, 4)
     page = request.GET.get('page')
     product_object = paginator.get_page(page)
@@ -50,10 +64,13 @@ def checkout(request):
         com.save()
         return redirect('confirmation')
 
+    if "Customer" not in request.session:
+        messages.error(request, "Vous devez être connecté en tant que client pour accéder à la page de paiement.")
+        return redirect('/')
+
     if request.session['Customer']:
         customer = Customer.objects.get(id=request.session['Customer'])
-    else:
-        customer = Customer.objects.get(id=1)
+
     return render(request, 'shop/checkout.html', {'customer': customer})
 
 def confirmation(request):
@@ -63,7 +80,7 @@ def confirmation(request):
     return render(request, 'shop/confirmation.html', {'name': nom})
 
 def category(request):
-    categories = Category.objects.all() 
+    categories = Category.objects.all()
     return render(request, 'shop/base.html', {'categories': categories})
 
 class Signup(View):

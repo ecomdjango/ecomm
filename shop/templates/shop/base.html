@@ -45,9 +45,11 @@
                             Categories
                           </a>
                           <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            {% for category in Categories %}
-                                <a class="dropdown-item" href="#">{{ category.name }}</a>
-                            {% endfor %}                                                        
+                            {% for category in categories %}
+                                {% with category_name=category.name|slugify %}
+                                    <a class="dropdown-item" href="{% url 'category' cat=category_name %}">{{ category.name }}</a>
+                                {% endwith %}
+                              {% endfor %}
                           </div>
                         </li>
                       {% if request.session.Customer %}
@@ -69,7 +71,9 @@
                   </nav>  
             </div>
         </div>
-
+        {% for message in messages %}
+            <h3>{{ message }}</h3>
+        {% endfor %}
 
         {% block content %}{% endblock %}
         <footer>

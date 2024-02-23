@@ -9,7 +9,6 @@
           <th>Quantité</th>
           <th>Article</th>
           <th>Prix</th>
-          <th>Total</th>
           <th>Date Commande</th>
           <th>Livraison</th>
         </tr>
@@ -22,7 +21,6 @@
               <td>{{ item_info.0 }}</td> <!-- Quantity -->
               <td>{{ item_info.1 }}</td> <!-- Article -->
               <td>{{ item_info.2 }}</td> <!-- Price -->
-              <td>{{ commande.total }}</td>
               <td>{{ commande.date_commande }}</td>
               <td>{{ commande.get_livraison_display }}</td> <!-- Use get_livraison_display to get the human-readable value of livraison -->
             </tr>
